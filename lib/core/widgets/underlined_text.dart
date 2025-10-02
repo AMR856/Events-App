@@ -16,6 +16,7 @@ class UnderlinedText extends StatelessWidget {
           decoration: TextDecoration.underline,
           decorationColor: ColorsManager.lightBlue,
           fontStyle: FontStyle.italic,
+          color: ColorsManager.lightBlue
         ),
       ),
     );

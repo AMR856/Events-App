@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Events App',
-          theme: ThemeManager.lightTheme,
+          theme: ThemeManager.darkTheme,
           onGenerateRoute: RouteManager.generateRoute,
           initialRoute: RouteManager.homeScreen,
         );

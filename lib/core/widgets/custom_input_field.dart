@@ -34,6 +34,7 @@ class CustomInputField extends StatelessWidget {
           label: Text(labelText),
           border: const OutlineInputBorder(),
         ),
+        style: Theme.of(context).textTheme.bodyMedium,
       ),
     );
   }

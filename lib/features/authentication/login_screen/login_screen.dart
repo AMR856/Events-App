@@ -1,8 +1,8 @@
-import 'package:evently/core/resources/colors_manager.dart';
 import 'package:evently/core/resources/image_manager.dart';
 import 'package:evently/core/resources/route_manager.dart';
 import 'package:evently/core/validators.dart';
 import 'package:evently/core/widgets/custom_input_field.dart';
+import 'package:evently/core/widgets/password_custom_input_field.dart';
 import 'package:evently/core/widgets/underlined_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -56,20 +56,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _emailController,
                   validator: Validator.validateEmail,
                 ),
-                CustomInputField(
-                  labelText: 'Password',
-                  prefixIcon: Icons.lock_rounded,
-                  suffixIconWidget: IconButton(
-                    icon: Icon(
-                      isObscure
-                          ? Icons.visibility_off_rounded
-                          : Icons.visibility_rounded,
-                    ),
-                    onPressed: () => setState(() => _toggleIsObscure()),
-                  ),
+                PasswordCustomInputField(
+                  label: 'Password',
                   isObscure: isObscure,
                   controller: _passwordController,
-                  validator: Validator.validatePassword,
+                  toggle: _toggleIsObscure,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -94,9 +85,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Don’t Have Account ?',
-                      style: Theme.of(context).textTheme.headlineSmall!
-                          .copyWith(color: ColorsManager.black1C),
+                      'Already Have Account ?',
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     UnderlinedText(
                       text: 'Create Account',
@@ -144,10 +134,12 @@ class _LoginScreenState extends State<LoginScreen> {
   void _navigateRegister() =>
       Navigator.pushNamed(context, RouteManager.registerScreen);
 
-  void _navigateHome() =>
-      Navigator.pushNamed(context, RouteManager.homeScreen);
+  void _navigateHome() => Navigator.pushNamed(context, RouteManager.homeScreen);
 
-  void _toggleIsObscure() => isObscure = !isObscure;
+  void _toggleIsObscure() {
+    isObscure = !isObscure;
+    setState(() {});
+  }
 
   void _login() {
     if (_formKey.currentState?.validate() == false) return;

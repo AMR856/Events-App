@@ -98,11 +98,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   Text(
                     'Already Have Account ?',
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      color: ColorsManager.black1C,
-                    ),
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
-                  UnderlinedText(text: 'Login', callback: _navigateLogin,),
+                  UnderlinedText(text: 'Login', callback: _navigateLogin),
                 ],
               ),
             ],
@@ -115,8 +113,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void _navigateLogin() =>
       Navigator.pushReplacementNamed(context, RouteManager.loginScreen);
 
-  void _toggleIsObscurePassword() => isObscurePassword = !isObscurePassword;
+  void _toggleIsObscurePassword() {
+    isObscurePassword = !isObscurePassword;
+    setState(() {});
+  }
 
-  void _toggleIsObscureRePassword() =>
-      isObscureRePassword = !isObscureRePassword;
+  void _toggleIsObscureRePassword() {
+    isObscureRePassword = !isObscureRePassword;
+    setState(() {});
+  }
 }

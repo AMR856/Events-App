@@ -34,6 +34,7 @@ class _PasswordCustomInputFieldState extends State<PasswordCustomInputField> {
         ),
         onPressed: () => setState(() => widget.toggle()),
       ),
+      isObscure: widget.isObscure,
       controller: widget.controller,
       validator: Validator.validatePassword,
     );
