@@ -1,6 +1,8 @@
-import 'package:evently/core/resources/colors_manager.dart';
-import 'package:evently/core/resources/event_manager.dart';
-import 'package:evently/core/widgets/event_widget.dart';
+import 'package:evently/core/widgets/navigation_bar_icon_widget.dart';
+import 'package:evently/features/main_layout/favorite_body/favorite_widget.dart';
+import 'package:evently/features/main_layout/home_body/home_widget.dart';
+import 'package:evently/features/main_layout/map_body/map_widget.dart';
+import 'package:evently/features/main_layout/profile_body/profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,104 +15,73 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isFavorite = false;
+  final GlobalKey<HomeWidgetState> homeKey = GlobalKey<HomeWidgetState>();
+
+  late final List<Widget> _tabs;
+  int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _tabs = [
+      HomeWidget(key: homeKey),
+      MapWidget(),
+      FavoriteWidget(homeKey: homeKey),
+      ProfileWidget(),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? ColorsManager.darkBlue
-                  : ColorsManager.lightBlue,
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(24.r),
-              ),
+      body: _tabs[_selectedIndex],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add_rounded, size: 35.sp),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        notchMargin: 6.0.sp,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            NavigationBarIconWidget(
+              currentSelectedIndex: _selectedIndex,
+              iconIndex: 0,
+              selectedIcon: Icons.home_rounded,
+              unSelectedIcon: Icons.home_outlined,
+              iconCallback: _changeSelectedIndex,
             ),
-            child: SafeArea(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Welcome Back ✨',
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                            Text(
-                              'Clementine',
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ],
-                        ),
-                        Spacer(),
-                        Icon(Icons.light_mode_outlined, size: 32.sp),
-                        SizedBox(width: 12.w),
-                        InkWell(
-                          onTap: () {},
-                          child: Card(
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                ? ColorsManager.white4F
-                                : ColorsManager.blueWhite,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 8.w,
-                                vertical: 8.h,
-                              ),
-                              child: Text(
-                                'EN',
-                                style: Theme.of(context).textTheme.titleSmall!
-                                    .copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      color:
-                                          Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? ColorsManager.darkBlue
-                                          : ColorsManager.lightBlue,
-                                    ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8.h),
-                    Row(
-                      children: [
-                        Icon(Icons.location_on_outlined, size: 30.sp),
-                        SizedBox(width: 4.w),
-                        Text(
-                          'Cairo, Egypt',
-                          style: Theme.of(context).textTheme.titleSmall!
-                              .copyWith(fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+            NavigationBarIconWidget(
+              currentSelectedIndex: _selectedIndex,
+              iconIndex: 1,
+              selectedIcon: Icons.location_on_rounded,
+              unSelectedIcon: Icons.location_on_outlined,
+              iconCallback: _changeSelectedIndex,
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: EventManager.events.length - 1,
-              itemBuilder: (context, index) {
-                return EventWidget(
-                  index: index,
-                  monthDay: 21,
-                  month: 'Nov',
-                  content: 'This is a birthday party',
-                );
-              },
+            NavigationBarIconWidget(
+              currentSelectedIndex: _selectedIndex,
+              iconIndex: 2,
+              selectedIcon: Icons.favorite_rounded,
+              unSelectedIcon: Icons.favorite_outline_rounded,
+              iconCallback: _changeSelectedIndex,
             ),
-          ),
-        ],
+            NavigationBarIconWidget(
+              currentSelectedIndex: _selectedIndex,
+              iconIndex: 3,
+              selectedIcon: Icons.person_rounded,
+              unSelectedIcon: Icons.person_outline_rounded,
+              iconCallback: _changeSelectedIndex,
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  void _changeSelectedIndex(int newIndex) {
+    _selectedIndex = newIndex;
+    setState(() {});
   }
 }

@@ -1,3 +1,4 @@
+import 'package:evently/features/create_event/create_event_screen.dart';
 import 'package:evently/features/main_layout/home_screen.dart';
 import 'package:evently/features/authentication/forget_password_screen/forget_password_screen.dart';
 import 'package:evently/features/authentication/login_screen/login_screen.dart';
@@ -9,6 +10,7 @@ class RouteManager {
   static const String registerScreen = '/register';
   static const String forgetPasswordScreen = '/forget-password';
   static const String homeScreen = '/home';
+  static const String createEvent = '/create-event';
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case loginScreen:
@@ -19,6 +21,8 @@ class RouteManager {
         return MaterialPageRoute(builder: (_) => ForgetPasswordScreen());
       case homeScreen:
         return MaterialPageRoute(builder: (_) => HomeScreen());
+      case createEvent:
+        return MaterialPageRoute(builder: (_) => CreateEventScreen());
       default:
         return MaterialPageRoute(builder: (_) => Scaffold());
     }

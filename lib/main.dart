@@ -20,9 +20,11 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Events App',
-          theme: ThemeManager.darkTheme,
+          theme: ThemeManager.lightTheme,
+          darkTheme: ThemeManager.darkTheme,
+          themeMode: ThemeMode.light,
           onGenerateRoute: RouteManager.generateRoute,
-          initialRoute: RouteManager.homeScreen,
+          initialRoute: RouteManager.createEvent,
         );
       },
     );

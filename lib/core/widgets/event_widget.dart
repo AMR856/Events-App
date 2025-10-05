@@ -1,14 +1,13 @@
+import 'package:evently/core/models/event_widget_model.dart';
 import 'package:evently/core/resources/colors_manager.dart';
 import 'package:evently/core/resources/event_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EventWidget extends StatefulWidget {
-  final int index;
-  final int monthDay;
-  final String month;
-  final String content;
-  const EventWidget({super.key, required this.index, required this.monthDay, required this.month, required this.content});
+  final EventWidgetModel model;
+
+  const EventWidget({super.key, required this.model});
 
   @override
   State<EventWidget> createState() => _EventWidgetState();
@@ -25,7 +24,11 @@ class _EventWidgetState extends State<EventWidget> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.r),
         image: DecorationImage(
-          image: AssetImage(EventManager.events[widget.index + 1].photo!),
+          image: AssetImage(
+            Theme.of(context).brightness == Brightness.dark
+                ? EventManager.eventsDark[widget.model.index + 1].photo!
+                : EventManager.events[widget.model.index + 1].photo!,
+          ),
           fit: BoxFit.cover,
         ),
       ),
@@ -35,28 +38,19 @@ class _EventWidgetState extends State<EventWidget> {
         children: [
           Card(
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 8.w,
-                vertical: 8.h,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
               child: Column(
                 children: [
                   Text(
-                    '${widget.monthDay}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineMedium!
-                        .copyWith(
+                    '${widget.model.monthDay}',
+                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       fontWeight: FontWeight.w700,
                       color: ColorsManager.lightBlue,
                     ),
                   ),
                   Text(
-                    widget.month,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineMedium!
-                        .copyWith(
+                    widget.model.month,
+                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       fontWeight: FontWeight.w700,
                       color: ColorsManager.lightBlue,
                     ),
@@ -67,22 +61,22 @@ class _EventWidgetState extends State<EventWidget> {
           ),
           Card(
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 8.w,
-                vertical: 8.h,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
               child: Row(
                 children: [
                   Expanded(
                     child: Text(
-                      widget.content,
+                      widget.model.content,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
                   InkWell(
-                    onTap: (){},
+                    onTap: () =>
+                        widget.model.toggleFavorite(widget.model.index),
                     child: Icon(
-                      Icons.favorite_outline_outlined,
+                      widget.model.isFavorite
+                          ? Icons.favorite_rounded
+                          : Icons.favorite_outline_outlined,
                       color: ColorsManager.lightBlue,
                     ),
                   ),

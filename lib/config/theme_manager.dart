@@ -17,17 +17,13 @@ abstract class ThemeManager {
       titleTextStyle: TextStyle(
         fontSize: 24.sp,
         fontWeight: FontWeight.w400,
-        color: ColorsManager.lightBlue
-      )
+        color: ColorsManager.lightBlue,
+      ),
     ),
-    iconTheme: IconThemeData(
-      color: ColorsManager.blueWhite,
-    ),
+    iconTheme: IconThemeData(color: ColorsManager.blueWhite),
     cardTheme: CardThemeData(
       color: ColorsManager.blueWhite,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.r)
-      )
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
     ),
     scaffoldBackgroundColor: ColorsManager.blueWhite,
     outlinedButtonTheme: OutlinedButtonThemeData(
@@ -79,6 +75,17 @@ abstract class ThemeManager {
       prefixIconColor: ColorsManager.grey,
       suffixIconColor: ColorsManager.grey,
     ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      shape: CircleBorder(
+        side: BorderSide(color: ColorsManager.blueWhite, width: 2.w),
+      ),
+      backgroundColor: ColorsManager.lightBlue,
+      foregroundColor: ColorsManager.blueWhite,
+    ),
+    bottomAppBarTheme: BottomAppBarTheme(
+      color: ColorsManager.lightBlue,
+      shape: CircularNotchedRectangle(),
+    ),
     textTheme: TextTheme(
       headlineSmall: GoogleFonts.inter(
         fontWeight: FontWeight.w700,
@@ -105,18 +112,33 @@ abstract class ThemeManager {
         fontSize: 24.sp,
         color: ColorsManager.blueWhite,
       ),
+      titleMedium: GoogleFonts.inter(
+        fontWeight: FontWeight.w700,
+        fontSize: 20.sp,
+        color: ColorsManager.black1C
+      ),
+      displayMedium: GoogleFonts.inter(
+        fontWeight: FontWeight.w500,
+        fontSize: 16.sp,
+        color: ColorsManager.blueWhite,
+      ),
+      displaySmall: GoogleFonts.inter(
+        fontWeight: FontWeight.w700,
+        fontSize: 12.sp,
+        color: ColorsManager.blueWhite,
+      ),
     ),
   );
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     appBarTheme: AppBarTheme(
-        centerTitle: true,
-        foregroundColor: ColorsManager.lightBlue,
-        titleTextStyle: TextStyle(
-            fontSize: 24.sp,
-            fontWeight: FontWeight.w400,
-            color: ColorsManager.lightBlue
-        )
+      centerTitle: true,
+      foregroundColor: ColorsManager.lightBlue,
+      titleTextStyle: TextStyle(
+        fontSize: 24.sp,
+        fontWeight: FontWeight.w400,
+        color: ColorsManager.lightBlue,
+      ),
     ),
     scaffoldBackgroundColor: ColorsManager.darkBlue,
     inputDecorationTheme: InputDecorationTheme(
@@ -159,6 +181,17 @@ abstract class ThemeManager {
         ),
       ),
     ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      shape: CircleBorder(
+        side: BorderSide(color: ColorsManager.white4F, width: 2.w),
+      ),
+      backgroundColor: ColorsManager.darkBlue,
+      foregroundColor: ColorsManager.white4F,
+    ),
+    bottomAppBarTheme: BottomAppBarTheme(
+      color: ColorsManager.darkBlue,
+      shape: CircularNotchedRectangle(),
+    ),
     dividerTheme: DividerThemeData(
       color: ColorsManager.lightBlue,
       indent: 16.w,
@@ -173,14 +206,10 @@ abstract class ThemeManager {
         side: BorderSide(color: ColorsManager.lightBlue),
       ),
     ),
-    iconTheme: IconThemeData(
-      color: ColorsManager.white4F,
-    ),
+    iconTheme: IconThemeData(color: ColorsManager.white4F),
     cardTheme: CardThemeData(
-        color: ColorsManager.darkBlue,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.r)
-        )
+      color: ColorsManager.darkBlue,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
     ),
     textTheme: TextTheme(
       headlineSmall: GoogleFonts.inter(
@@ -203,9 +232,19 @@ abstract class ThemeManager {
         fontSize: 14.sp,
         color: ColorsManager.white4F,
       ),
+      titleMedium: GoogleFonts.inter(
+          fontWeight: FontWeight.w700,
+          fontSize: 20.sp,
+          color: ColorsManager.white4F
+      ),
       titleLarge: GoogleFonts.inter(
         fontWeight: FontWeight.w700,
         fontSize: 24.sp,
+        color: ColorsManager.white4F,
+      ),
+      displayMedium: GoogleFonts.inter(
+        fontWeight: FontWeight.w500,
+        fontSize: 16.sp,
         color: ColorsManager.white4F,
       ),
     ),
