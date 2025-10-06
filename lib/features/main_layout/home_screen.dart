@@ -1,3 +1,4 @@
+import 'package:evently/core/resources/route_manager.dart';
 import 'package:evently/core/widgets/navigation_bar_icon_widget.dart';
 import 'package:evently/features/main_layout/favorite_body/favorite_widget.dart';
 import 'package:evently/features/main_layout/home_body/home_widget.dart';
@@ -15,7 +16,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isFavorite = false;
-  final GlobalKey<HomeWidgetState> homeKey = GlobalKey<HomeWidgetState>();
 
   late final List<Widget> _tabs;
   int _selectedIndex = 0;
@@ -24,20 +24,16 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _tabs = [
-      HomeWidget(key: homeKey),
-      MapWidget(),
-      FavoriteWidget(homeKey: homeKey),
-      ProfileWidget(),
-    ];
+    _tabs = [HomeWidget(), MapWidget(), FavoriteWidget(), ProfileWidget()];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: _tabs[_selectedIndex],
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Navigator.pushNamed(context, RouteManager.createEvent),
         child: Icon(Icons.add_rounded, size: 35.sp),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

@@ -1,10 +1,25 @@
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:evently/core/resources/route_manager.dart';
-import 'config/theme_manager.dart';
+import 'package:evently/config/theme_manager.dart';
+import 'package:provider/provider.dart';
+import 'package:evently/providers/tab_index_provider.dart';
+import 'package:evently/providers/theme_provider.dart';
+import 'package:evently/providers/language_provider.dart';
 
-void main(){
-  runApp(MyApp());
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => TabIndexProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => LanguageProvider())
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -17,14 +32,27 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
+        final themeProvider = Provider.of<ThemeProvider>(context);
+        final langProvider = Provider.of<LanguageProvider>(context);
         return MaterialApp(
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en'),
+            Locale('ar'),
+          ],
+          locale: langProvider.currentLang,
           debugShowCheckedModeBanner: false,
           title: 'Events App',
           theme: ThemeManager.lightTheme,
           darkTheme: ThemeManager.darkTheme,
-          themeMode: ThemeMode.light,
+          themeMode: themeProvider.currentTheme,
           onGenerateRoute: RouteManager.generateRoute,
-          initialRoute: RouteManager.createEvent,
+          initialRoute: RouteManager.homeScreen,
         );
       },
     );

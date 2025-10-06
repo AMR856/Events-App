@@ -26,8 +26,8 @@ class _EventWidgetState extends State<EventWidget> {
         image: DecorationImage(
           image: AssetImage(
             Theme.of(context).brightness == Brightness.dark
-                ? EventManager.eventsDark[widget.model.index + 1].photo!
-                : EventManager.events[widget.model.index + 1].photo!,
+                ? EventManager.getDarkEvents(context)[widget.model.index].photo!
+                : EventManager.getEvents(context)[widget.model.index].photo!,
           ),
           fit: BoxFit.cover,
         ),

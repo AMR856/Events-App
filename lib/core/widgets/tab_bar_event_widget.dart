@@ -6,6 +6,7 @@ class TabBarEventWidget extends StatefulWidget {
   final int index;
   final bool isSelected;
   final void Function(int) selectedCallback;
+  final bool isAll;
 
   final Color selectedBackgroundColor;
   final Color borderColor;
@@ -21,6 +22,7 @@ class TabBarEventWidget extends StatefulWidget {
     required this.borderColor,
     required this.selectedTextColor,
     required this.unselectedTextColor,
+    required this.isAll
   });
 
   @override
@@ -51,14 +53,14 @@ class _TabBarEventWidgetState extends State<TabBarEventWidget> {
         child: Row(
           children: [
             Icon(
-              EventManager.events[widget.index].icon,
+              widget.isAll ? EventManager.getEventsWithAll(context)[widget.index].icon : EventManager.getEvents(context)[widget.index].icon,
               color: isSelected
                   ? widget.selectedTextColor
                   : widget.unselectedTextColor,
             ),
             SizedBox(width: 8.w),
             Text(
-              EventManager.events[widget.index].name,
+              widget.isAll ? EventManager.getEventsWithAll(context)[widget.index].name : EventManager.getEvents(context)[widget.index].name,
               style: Theme.of(context).textTheme.displayMedium!.copyWith(
                 color: isSelected
                     ? widget.selectedTextColor

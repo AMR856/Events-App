@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'tab_bar_event_widget.dart';
+import 'package:evently/core/widgets/tab_bar_event_widget.dart';
 
 class TabBarWidget extends StatefulWidget {
   final void Function(int) changeSelected;
   final int? currentSelectedIndex;
   final int itemsCount;
-
-  // ✅ Color inputs
+  final bool isAll;
   final Color selectedBackgroundColor;
   final Color borderColor;
   final Color selectedTextColor;
@@ -21,7 +20,7 @@ class TabBarWidget extends StatefulWidget {
     required this.selectedBackgroundColor,
     required this.borderColor,
     required this.selectedTextColor,
-    required this.unselectedTextColor,
+    required this.unselectedTextColor, required this.isAll,
   });
 
   @override
@@ -42,11 +41,11 @@ class _TabBarWidgetState extends State<TabBarWidget> {
             index: index,
             isSelected: index == widget.currentSelectedIndex,
             selectedCallback: widget.changeSelected,
-
             selectedBackgroundColor: widget.selectedBackgroundColor,
             borderColor: widget.borderColor,
             selectedTextColor: widget.selectedTextColor,
             unselectedTextColor: widget.unselectedTextColor,
+            isAll: widget.isAll,
           ),
         ),
       ),

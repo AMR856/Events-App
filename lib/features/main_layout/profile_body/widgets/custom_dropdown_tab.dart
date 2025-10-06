@@ -5,12 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomDropdownTab extends StatefulWidget {
   final String label;
   final List<String> itemsList;
+  final String currentValue;
   final void Function(String?) onChanged;
+
   const CustomDropdownTab({
     super.key,
     required this.label,
     required this.itemsList,
     required this.onChanged,
+    required this.currentValue,
   });
 
   @override
@@ -35,7 +38,7 @@ class _CustomDropdownTabState extends State<CustomDropdownTab> {
           child: Row(
             children: [
               Text(
-                widget.itemsList[0],
+                widget.currentValue,
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   color: ColorsManager.lightBlue,
                 ),

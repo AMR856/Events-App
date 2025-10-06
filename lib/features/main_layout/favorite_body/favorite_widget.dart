@@ -1,12 +1,9 @@
 import 'package:evently/core/resources/colors_manager.dart';
-import 'package:evently/features/main_layout/favorite_body/widgets/event_search_delegate.dart';
 import 'package:flutter/material.dart';
-import 'package:evently/features/main_layout/home_body/home_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FavoriteWidget extends StatefulWidget {
-  final GlobalKey<HomeWidgetState> homeKey;
-  const FavoriteWidget({super.key, required this.homeKey});
+  const FavoriteWidget({super.key});
 
   @override
   State<FavoriteWidget> createState() => _FavoriteWidgetState();
@@ -25,11 +22,6 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
               child: TextField(
                 readOnly: true,
                 onTap: () {
-                  final events = widget.homeKey.currentState?.dummyEvents ?? [];
-                  showSearch(
-                    context: context,
-                    delegate: EventSearchDelegate(events: events),
-                  );
                 },
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     fontWeight: FontWeight.w700,

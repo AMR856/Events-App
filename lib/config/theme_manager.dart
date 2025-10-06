@@ -72,6 +72,11 @@ abstract class ThemeManager {
         color: ColorsManager.grey,
         fontWeight: FontWeight.w500,
       ),
+      hintStyle: GoogleFonts.inter(
+        fontSize: 16.sp,
+        color: ColorsManager.grey,
+        fontWeight: FontWeight.w500,
+      ),
       prefixIconColor: ColorsManager.grey,
       suffixIconColor: ColorsManager.grey,
     ),
@@ -159,6 +164,11 @@ abstract class ThemeManager {
         borderSide: BorderSide(color: ColorsManager.red, width: 1.w),
       ),
       labelStyle: GoogleFonts.inter(
+        fontSize: 16.sp,
+        color: ColorsManager.white4F,
+        fontWeight: FontWeight.w500,
+      ),
+      hintStyle: GoogleFonts.inter(
         fontSize: 16.sp,
         color: ColorsManager.white4F,
         fontWeight: FontWeight.w500,

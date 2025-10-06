@@ -1,4 +1,3 @@
-import 'package:evently/core/resources/colors_manager.dart';
 import 'package:evently/core/resources/image_manager.dart';
 import 'package:evently/core/resources/route_manager.dart';
 import 'package:evently/core/validators.dart';
@@ -7,6 +6,7 @@ import 'package:evently/core/widgets/password_custom_input_field.dart';
 import 'package:evently/core/widgets/underlined_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:evently/l10n/app_localizations.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -43,10 +43,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         forceMaterialTransparency: true,
-        title: const Text('Register'),
+        title: Text(appLocalizations.register),
       ),
       body: SafeArea(
         child: Padding(
@@ -60,25 +61,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               SizedBox(height: 24.h),
               CustomInputField(
-                labelText: 'Name',
+                labelText: appLocalizations.name,
                 prefixIcon: Icons.person_rounded,
                 controller: _nameController,
                 validator: Validator.validateName,
               ),
               CustomInputField(
-                labelText: 'Email',
+                labelText: appLocalizations.email,
                 prefixIcon: Icons.email_rounded,
                 controller: _emailController,
                 validator: Validator.validateEmail,
               ),
               PasswordCustomInputField(
-                label: 'Password',
+                label: appLocalizations.password,
                 isObscure: isObscurePassword,
                 controller: _passwordController,
                 toggle: _toggleIsObscurePassword,
               ),
               PasswordCustomInputField(
-                label: 'Re-Password',
+                label: appLocalizations.re_password,
                 isObscure: isObscureRePassword,
                 controller: _rePasswordController,
                 toggle: _toggleIsObscureRePassword,
@@ -89,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   width: double.infinity,
                   child: FilledButton(
                     onPressed: () => {},
-                    child: const Text("Create Account"),
+                    child: Text(appLocalizations.create_account),
                   ),
                 ),
               ),
@@ -97,10 +98,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Already Have Account ?',
+                    appLocalizations.already_have_account,
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
-                  UnderlinedText(text: 'Login', callback: _navigateLogin),
+                  UnderlinedText(text: appLocalizations.login, callback: _navigateLogin),
                 ],
               ),
             ],

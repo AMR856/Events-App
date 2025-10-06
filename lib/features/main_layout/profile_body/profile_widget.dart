@@ -1,8 +1,12 @@
 import 'package:evently/core/resources/colors_manager.dart';
 import 'package:evently/core/resources/image_manager.dart';
 import 'package:evently/features/main_layout/profile_body/widgets/custom_dropdown_tab.dart';
+import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/providers/language_provider.dart';
+import 'package:evently/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget({super.key});
@@ -12,9 +16,12 @@ class ProfileWidget extends StatefulWidget {
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
-  String? selectedLanguage = 'English';
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<ThemeProvider>(context);
+    var langProvider = Provider.of<LanguageProvider>(context);
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
+
     return Column(
       children: [
         Container(
@@ -23,6 +30,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(24.r)),
           ),
           child: SafeArea(
+            bottom: false,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
               child: Row(
@@ -59,17 +67,34 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             child: Column(
               children: [
                 CustomDropdownTab(
-                  label: 'Language',
-                  itemsList: ['Arabic', 'English'],
-                  onChanged: (value) {},
+                  label: appLocalizations.language,
+                  itemsList: ['عربي', 'English'],
+                  onChanged: (newLang) {
+                    debugPrint(newLang);
+                    langProvider.changeLang(
+                      newLang == 'English' ? Locale('en') : Locale('ar'),
+                    );
+                  },
+                  currentValue: langProvider.currentLang == Locale('en')
+                      ? 'English'
+                      : 'عربي',
                 ),
                 SizedBox(height: 16.h),
                 CustomDropdownTab(
-                  label: 'Theme',
-                  itemsList: ['Light', 'Dark'],
-                  onChanged: (value) {},
+                  label: appLocalizations.theme,
+                  itemsList: [appLocalizations.light, appLocalizations.dark],
+                  onChanged: (newTheme) {
+                    themeProvider.changeTheme(
+                      newTheme == appLocalizations.light
+                          ? ThemeMode.light
+                          : ThemeMode.dark,
+                    );
+                  },
+                  currentValue: themeProvider.currentTheme == ThemeMode.dark
+                      ? appLocalizations.dark
+                      : appLocalizations.light,
                 ),
-                Spacer(),
+                SizedBox(height: 180.h),
                 FilledButton(
                   onPressed: () {},
                   style: FilledButton.styleFrom(
@@ -83,7 +108,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         Icon(Icons.exit_to_app_rounded, size: 25.sp),
                         SizedBox(width: 8.w),
                         Text(
-                          'Logout',
+                          appLocalizations.logout,
                           style: Theme.of(context).textTheme.headlineMedium!
                               .copyWith(color: ColorsManager.white),
                         ),
@@ -91,7 +116,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     ),
                   ),
                 ),
-                SizedBox(height: 4.h),
               ],
             ),
           ),

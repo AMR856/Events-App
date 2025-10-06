@@ -1,3 +1,4 @@
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:evently/core/resources/image_manager.dart';
 import 'package:evently/core/widgets/custom_input_field.dart';
@@ -28,10 +29,11 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         forceMaterialTransparency: true,
-        title: const Text('Forget Password'),
+        title: Text(appLocalizations.forget_password),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -42,7 +44,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               child: Image.asset(ImageManager.forgetPassword),
             ),
             CustomInputField(
-              labelText: 'Email',
+              labelText: appLocalizations.email,
               prefixIcon: Icons.email_rounded,
               controller: _emailController,
               validator: Validator.validateEmail,
@@ -53,7 +55,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 width: double.infinity,
                 child: FilledButton(
                   onPressed: () => {},
-                  child: const Text("Reset Password"),
+                  child: Text(appLocalizations.reset_password),
                 ),
               ),
             ),

@@ -4,6 +4,7 @@ import 'package:evently/core/validators.dart';
 import 'package:evently/core/widgets/custom_input_field.dart';
 import 'package:evently/core/widgets/password_custom_input_field.dart';
 import 'package:evently/core/widgets/underlined_text.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -37,6 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -51,13 +54,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 136.w,
                 ),
                 CustomInputField(
-                  labelText: 'Email',
+                  labelText: appLocalizations.email,
                   prefixIcon: Icons.email_rounded,
                   controller: _emailController,
                   validator: Validator.validateEmail,
                 ),
                 PasswordCustomInputField(
-                  label: 'Password',
+                  label: appLocalizations.password,
                   isObscure: isObscure,
                   controller: _passwordController,
                   toggle: _toggleIsObscure,
@@ -66,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     UnderlinedText(
-                      text: 'Forget Password',
+                      text: appLocalizations.forget_password,
                       callback: _navigateForgetPassword,
                     ),
                   ],
@@ -77,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: double.infinity,
                     child: FilledButton(
                       onPressed: () => _login(),
-                      child: const Text("Login"),
+                      child: Text(appLocalizations.login),
                     ),
                   ),
                 ),
@@ -85,11 +88,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Already Have Account ?',
+                      appLocalizations.already_have_account,
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     UnderlinedText(
-                      text: 'Create Account',
+                      text: appLocalizations.create_account,
                       callback: _navigateRegister,
                     ),
                   ],
@@ -99,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Expanded(child: Divider()),
                     Text(
-                      'Or',
+                      appLocalizations.or,
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     Expanded(child: Divider()),
@@ -114,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Image.asset(ImageManager.googleLogo),
                       SizedBox(width: 10.w),
                       Text(
-                        'Login With Google',
+                        appLocalizations.login_with_google,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     ],
