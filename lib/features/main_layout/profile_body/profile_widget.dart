@@ -1,9 +1,12 @@
 import 'package:evently/core/resources/colors_manager.dart';
 import 'package:evently/core/resources/image_manager.dart';
+import 'package:evently/core/resources/route_manager.dart';
+import 'package:evently/core/ui/toasts.dart';
 import 'package:evently/features/main_layout/profile_body/widgets/custom_dropdown_tab.dart';
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/providers/language_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -96,7 +99,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 ),
                 SizedBox(height: 180.h),
                 FilledButton(
-                  onPressed: () {},
+                  onPressed: () => _logout(),
                   style: FilledButton.styleFrom(
                     foregroundColor: ColorsManager.white,
                     backgroundColor: ColorsManager.red,
@@ -122,5 +125,18 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         ),
       ],
     );
+  }
+
+  void _navigateLogin() =>
+      Navigator.pushReplacementNamed(context, RouteManager.loginScreen);
+
+  void _logout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Toasts.showToast(ColorsManager.green, 'Logged out successfully!');
+      _navigateLogin();
+    } catch(e) {
+      Toasts.showToast(ColorsManager.red, 'Logging out failed: $e');
+    }
   }
 }

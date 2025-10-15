@@ -1,9 +1,15 @@
+import 'package:evently/core/resources/colors_manager.dart';
+import 'package:evently/core/resources/route_manager.dart';
+import 'package:evently/core/ui/toasts.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart'
+    show FirebaseAuth, FirebaseAuthException;
 import 'package:flutter/material.dart';
 import 'package:evently/core/resources/image_manager.dart';
 import 'package:evently/core/widgets/custom_input_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:evently/core/validators.dart';
+import 'package:fluttertoast/fluttertoast.dart' show Fluttertoast;
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -54,7 +60,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               child: SizedBox(
                 width: double.infinity,
                 child: FilledButton(
-                  onPressed: () => {},
+                  onPressed: () => _resetPassword(),
                   child: Text(appLocalizations.reset_password),
                 ),
               ),
@@ -63,5 +69,22 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         ),
       ),
     );
+  }
+
+  void _navigateLogin() =>
+      Navigator.pushReplacementNamed(context, RouteManager.loginScreen);
+
+  void _resetPassword() async {
+    try {
+      String email = _emailController.text.trim();
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      Toasts.showToast(
+        ColorsManager.green,
+        "Password reset email sent! Check your inbox.",
+      );
+      _navigateLogin();
+    } on FirebaseAuthException catch (e) {
+      Toasts.showToast(ColorsManager.red, e.code.replaceAll('-', ' '));
+    }
   }
 }

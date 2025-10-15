@@ -108,7 +108,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get event_date => 'تاريخ الحدث';
 
   @override
+  String get choose_date => 'اختار تاريخ';
+
+  @override
   String get event_time => 'وقت الحدث';
+
+  @override
+  String get choose_time => 'اختار وقت';
 
   @override
   String get location => 'الموقع';

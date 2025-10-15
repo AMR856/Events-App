@@ -1,12 +1,18 @@
+import 'package:evently/core/resources/colors_manager.dart';
 import 'package:evently/core/resources/image_manager.dart';
 import 'package:evently/core/resources/route_manager.dart';
+import 'package:evently/core/ui/toasts.dart';
 import 'package:evently/core/validators.dart';
 import 'package:evently/core/widgets/custom_input_field.dart';
 import 'package:evently/core/widgets/password_custom_input_field.dart';
 import 'package:evently/core/widgets/underlined_text.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart' show Fluttertoast;
+import 'package:google_sign_in/google_sign_in.dart'
+    show GoogleSignIn, GoogleSignInAccount, GoogleSignInAuthentication;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -110,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 12.h),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () => _signInWithGoogle(),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -144,8 +150,52 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {});
   }
 
-  void _login() {
+  Future<void> _signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        Toasts.showToast(ColorsManager.red, "Google sign-in canceled.");
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      Toasts.showToast(
+        ColorsManager.green,
+        "Logged in with Google successfully!",
+      );
+    } on FirebaseAuthException catch (e) {
+      Toasts.showToast(ColorsManager.red, "Firebase error: ${e.message}");
+    } catch (e) {
+      print(e);
+      Toasts.showToast(ColorsManager.red, "Sign-in failed: $e");
+    }
+  }
+
+  void _login() async {
     if (_formKey.currentState?.validate() == false) return;
-    _navigateHome();
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      Toasts.showToast(ColorsManager.green, 'Login Successful');
+      _navigateHome();
+    } on FirebaseAuthException catch (e) {
+      Toasts.showToast(ColorsManager.red, e.code.replaceAll('-', ' '));
+    } catch (e) {
+      Toasts.showToast(ColorsManager.red, 'An unexpected error occurred.');
+    }
   }
 }
+
+// amer.live777@gmail.com
+// 11223344Am@

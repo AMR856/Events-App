@@ -1,4 +1,7 @@
+import 'package:evently/config/shared_pref_manager.dart';
+import 'package:evently/firebase_options.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:firebase_core/firebase_core.dart' show Firebase;
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +12,12 @@ import 'package:evently/providers/tab_index_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
 import 'package:evently/providers/language_provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPrefManager.init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     MultiProvider(
       providers: [
@@ -58,3 +66,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+// Amr Alnus
+// amer.live111@gmail.com
+// 11223344Am@

@@ -1,13 +1,15 @@
+import 'package:evently/config/shared_pref_manager.dart';
 import 'package:flutter/material.dart';
 
 class LanguageProvider extends ChangeNotifier {
-  Locale _currentLocale = Locale('en');
+  Locale _currentLocale = SharedPrefManager.getLang();
 
   Locale get currentLang => _currentLocale;
 
   void changeLang(Locale newLocale) {
     if (_currentLocale == newLocale) return;
     _currentLocale = newLocale;
+    SharedPrefManager.setLang(newLocale);
     notifyListeners();
   }
 
@@ -17,6 +19,7 @@ class LanguageProvider extends ChangeNotifier {
     } else {
       _currentLocale = Locale('en');
     }
+    SharedPrefManager.setLang(_currentLocale);
     notifyListeners();
   }
 }

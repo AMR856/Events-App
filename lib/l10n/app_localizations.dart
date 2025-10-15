@@ -296,11 +296,23 @@ abstract class AppLocalizations {
   /// **'Event Date'**
   String get event_date;
 
+  /// No description provided for @choose_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Date'**
+  String get choose_date;
+
   /// No description provided for @event_time.
   ///
   /// In en, this message translates to:
   /// **'Event Time'**
   String get event_time;
+
+  /// No description provided for @choose_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Time'**
+  String get choose_time;
 
   /// No description provided for @location.
   ///

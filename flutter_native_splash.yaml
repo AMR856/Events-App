@@ -1,0 +1,25 @@
+flutter_native_splash:
+  color: "#F2FEFF"
+  image: assets/splash_screen_logo.png
+  branding: assets/branding_image.png
+
+  color_dark: "#101127"
+  image_dark: assets/splash_screen_logo_dark.png
+  branding_dark: assets/branding_image.png
+
+  android_12:
+    image: assets/splash_screen_logo.png
+    color: "#F2FEFF"
+    branding: assets/branding_image.png
+    # If you want a dark theme on Android 12+, you can uncomment and adjust below:
+    # image_dark: assets/splash_screen_logo_dark.png
+    # color_dark: "#101127"
+
+  android: true
+  ios: true
+  web: false
+
+  # Optional positioning and appearance
+  # android_gravity: center
+  # ios_content_mode: center
+  # fullscreen: false
